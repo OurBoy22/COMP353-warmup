@@ -1,0 +1,19 @@
+version: "3.9"
+
+services:
+  mysql:
+    image: mysql:latest
+    container_name: mysql-container
+    ports:
+      - "3306:3306" # Maps MySQL port to the host
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: mydatabase
+      MYSQL_USER: myuser
+      MYSQL_PASSWORD: mypassword
+    volumes:
+      - mysql_data:/var/lib/mysql # Persist data across container restarts
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql # Optional: Custom SQL initialization script
+
+volumes:
+  mysql_data:
