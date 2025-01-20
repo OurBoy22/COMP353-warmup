@@ -25,6 +25,7 @@ username: myuser
 password: mypassword
 ```
 ![test](MySQL_connection_image.PNG)
+
 This should allow you to connect into the database. You can now write your own SQL Queries
 
 ## Loading Example data into the database
