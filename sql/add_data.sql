@@ -38,8 +38,6 @@ CREATE TABLE PersonInfo
 CREATE TABLE Personel
 (
     personel_id INT PRIMARY KEY NOT NULL,
-    role varchar(20) NOT NULL, 
-    mandate varchar(20) NOT NULL,
     person_id INT NOT NULL
 );
 
@@ -60,7 +58,9 @@ CREATE TABLE Contract
     term_start_date DATE NOT NULL,
     term_end_date DATE,
     personel_id INT NOT NULL,
-    location_id INT NOT NULL
+    location_id INT NOT NULL,
+    role varchar(20) NOT NULL, 
+    mandate varchar(20) NOT NULL
 );
 
 CREATE TABLE Relationship
@@ -195,30 +195,55 @@ VALUES
 
 
 -- Insert into Personel
-INSERT INTO Personel (personel_id, role, mandate, person_id)
+INSERT INTO Personel (personel_id, person_id)
 VALUES 
     -- first location
-    (1, 'Manager', 'Full-Time', 1),
-    (2, 'Coach', 'Part-Time', 2),
-    (3, 'Assistant Coach', 'Full-Time', 3),
+    (1, 1),
+    (2, 2),
+    (3, 3),
 
     -- second location
-    (4, 'Manager', 'Full-Time', 4),
-    (5, 'Coach', 'Part-Time', 5),
-    (6, 'Captain', 'Full-Time', 6),
-    (7, 'Assistant Coach', 'Full-Time', 7),
-    (8, 'Other', 'Part-Time', 8),
-    (9, 'Captain', 'Full-Time', 9),
-    (10, 'Coach', 'Part-Time', 10),
-    (11, 'Other', 'Full-Time', 11),
+    (4, 4),
+    (5, 5),
+    (6, 6),
+    (7, 7),
+    (8, 8),
+    (9, 9),
+    (10, 10),
+    (11, 11),
 
     -- head location
-    (12, 'General Manager', 'Full-Time', 12),
-    (13, 'Deputy', 'Full-Time', 13),
-    (14, 'Secretary', 'Full-Time', 14),
-    (15, 'Treasurer', 'Part-Time', 15),
-    (16, 'Administrator', 'Full-Time', 16);
-    
+    (12, 12),
+    (13, 13),
+    (14, 14),
+    (15, 15),
+    (16, 16);
+
+-- Insert into Contract
+INSERT INTO Contract (contract_id, term_start_date, term_end_date, personel_id, location_id, role, mandate)
+VALUES 
+    -- First location contracts
+    (1, '2023-01-01', NULL, 1, 1, 'Manager', 'salaried'), -- active
+    (2, '2022-06-15', '2024-06-15', 2, 1, 'Coach', 'volunteer'), -- expired
+    (3, '2023-03-01', NULL, 3, 1, 'Assistant Coach', 'salaried'), -- active
+
+    -- Second location contracts
+    (4, '2023-01-01', '2025-01-01', 4, 2, 'Manager', 'salaried'), -- ongoing
+    (5, '2024-05-01', NULL, 5, 2, 'Coach', 'volunteer'), -- active
+    (6, '2023-07-01', '2024-07-01', 6, 2, 'Captain', 'salaried'), -- expired
+    (7, '2023-12-01', NULL, 7, 2, 'Assistant Coach', 'salaried'), -- active
+    (8, '2023-05-01', '2024-05-01', 8, 2, 'Other', 'volunteer'), -- expired
+    (9, '2022-09-01', '2024-09-01', 9, 2, 'Captain', 'salaried'), -- expired
+    (10, '2024-01-01', NULL, 10, 2, 'Coach', 'volunteer'), -- active
+    (11, '2023-11-15', '2024-11-15', 11, 2, 'Other', 'salaried'), -- ongoing
+
+    -- Headquarters contracts
+    (12, '2020-01-01', NULL, 12, 3, 'General Manager', 'salaried'), -- active
+    (13, '2023-01-01', '2024-01-01', 13, 3, 'Deputy', 'salaried'), -- expired
+    (14, '2023-04-15', NULL, 14, 3, 'Secretary', 'salaried'), -- active
+    (15, '2023-06-01', '2024-06-01', 15, 3, 'Treasurer', 'volunteer'), -- expired
+    (16, '2024-01-01', NULL, 16, 3, 'Administrator', 'salaried'); -- active
+
 -- Insert into Location
 INSERT INTO Location (location_id, name, type, phone_num, web_address, max_capacity, address_id)
 VALUES 
@@ -228,32 +253,6 @@ VALUES
     (2, 'Club B', 'Branch', '555-5678', 'www.clubb.com', 50, 2),
     -- head location
     (3, 'Headquarters', 'Head', '555-9012', 'www.headquarters.com', 10, 3);
-
-
--- Insert into Contract
-INSERT INTO Contract (contract_id, term_start_date, term_end_date, personel_id, location_id)
-VALUES 
-    -- First location contracts
-    (1, '2023-01-01', NULL, 1, 1), -- Manager, active
-    (2, '2022-06-15', '2024-06-15', 2, 1), -- Coach, expired
-    (3, '2023-03-01', NULL, 3, 1), -- Assistant Coach, active
-
-    -- Second location contracts
-    (4, '2023-01-01', '2025-01-01', 4, 2), -- Manager, ongoing
-    (5, '2024-05-01', NULL, 5, 2), -- Coach, active
-    (6, '2023-07-01', '2024-07-01', 6, 2), -- Captain, expired
-    (7, '2023-12-01', NULL, 7, 2), -- Assistant Coach, active
-    (8, '2023-05-01', '2024-05-01', 8, 2), -- Other, expired
-    (9, '2022-09-01', '2024-09-01', 9, 2), -- Captain, expired
-    (10, '2024-01-01', NULL, 10, 2), -- Coach, active
-    (11, '2023-11-15', '2024-11-15', 11, 2), -- Other, ongoing
-
-    -- Headquarters contracts
-    (12, '2020-01-01', NULL, 12, 3), -- General Manager, active
-    (13, '2023-01-01', '2024-01-01', 13, 3), -- Deputy, expired
-    (14, '2023-04-15', NULL, 14, 3), -- Secretary, active
-    (15, '2023-06-01', '2024-06-01', 15, 3), -- Treasurer, expired
-    (16, '2024-01-01', NULL, 16, 3); -- Administrator, active
 
 
 -- Insert into Relationship

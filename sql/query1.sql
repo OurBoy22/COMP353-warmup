@@ -40,7 +40,7 @@ LocationManager AS (
         Contract.location_id
     FROM Personel
     LEFT JOIN Contract ON Personel.personel_id = Contract.personel_id
-    WHERE Personel.role = 'Manager' OR Personel.role = 'General Manager'
+    WHERE Contract.role = 'Manager' OR Contract.role = 'General Manager'
 )
 
 -- Final query joining the subqueries
