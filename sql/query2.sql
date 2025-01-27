@@ -1,4 +1,10 @@
--- Subquery for combining ClubMembers and Family Members
+-- For a given location, provide a report that lists for every family member who is
+-- currently registered in the location, the number of related active club members.
+-- Information includes family members’ first name, last name, and the number of
+-- active club members that are associated with the family member
+
+-- Subquery for combining ClubMembers and Family Members, 
+-- along with their relationships
 WITH MembersFamily AS (
     SELECT 
         -- Columns from Relationship
@@ -19,8 +25,10 @@ WITH MembersFamily AS (
 	
     LEFT JOIN ClubMember ON ClubMember.member_id = Relationship.rel_member_id
     LEFT JOIN FamilyMember ON FamilyMember.family_member_id = Relationship.rel_family_member_id
-)
-,
+    
+    WHERE Relationship.end_date IS NULL
+),
+-- Get the person information, name, etc based on the person_id of the family_member
 MembersFamilyPerson AS (
 	SELECT 
     
@@ -55,6 +63,7 @@ MembersFamilyPerson AS (
 ),
 
 -- Subquery for Analyzing payments
+-- Contains the total payments, by year, per member_id
 YearlyPayments AS (
 	SELECT
 		Payment.member_id AS payment_member_id,
@@ -67,7 +76,7 @@ YearlyPayments AS (
     GROUP BY 
 		Payment.member_id, Payment.location_id, membership_year, payment_year
 ),
-
+-- Determine the donation amounts, etc for each member
 PaymentInfo AS (
 	SELECT 
 		*,
@@ -87,9 +96,7 @@ ActiveMembers AS (
 
     FROM PaymentInfo
     LEFT JOIN MembersFamilyPerson ON PaymentInfo.payment_member_id = MembersFamilyPerson.club_member_id 
-    -- WHERE PaymentInfo.full_payment IS TRUE  -- Only include active members who made payments
 )
-
 
 -- Final query
 SELECT
@@ -101,7 +108,11 @@ SELECT
     
 FROM ActiveMembers
 
+WHERE ActiveMembers.payment_location_id = 2 
+	AND ActiveMembers.full_payment IS TRUE  -- Only include active members who made payments
+
 GROUP BY ActiveMembers.payment_location_id,
     ActiveMembers.family_member_id,
 	ActiveMembers.first_name,
-    ActiveMembers.last_name
+    ActiveMembers.last_name,
+	ActiveMembers.full_payment

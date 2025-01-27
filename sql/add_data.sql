@@ -31,7 +31,7 @@ CREATE TABLE PersonInfo
     ssn INT UNIQUE NOT NULL,
     med_card INT UNIQUE NOT NULL,
     phone_num varchar(20) NOT NULL,
-    email varchar(40) NOT NULL,
+    email varchar(40),
     address_id INT NOT NULL
 );
 
@@ -181,16 +181,17 @@ VALUES
     (25, 'Janet', 'Barnes', '1983-03-03', 272727272, 272727272, '234-567-8901', 'janet.barnes@example.com', 25),
 
     -- club members
-    (26, 'Alice', 'Johnson', '2008-08-12', 282828282, 282828282, '555-123-4567', 'alice.johnson@example.com', 26),
-    (27, 'Bob', 'Smith', '2009-05-30', 292929292, 292929292, '555-234-5678', 'bob.smith@example.com', 27),
-    (28, 'Charlie', 'Brown', '2010-03-15', 303030303, 303030303, '555-345-6789', 'charlie.brown@example.com', 28),
-    (29, 'David', 'Wilson', '2011-01-20', 313131313, 313131313, '555-456-7890', 'david.wilson@example.com', 29),
-    (30, 'Eva', 'Williams', '2012-07-18', 323232323, 323232323, '555-567-8901', 'eva.williams@example.com', 30),
-    (31, 'Frank', 'Miller', '2013-11-05', 343434343, 343434343, '555-678-9012', 'frank.miller@example.com', 31),
-    (32, 'Henry', 'Martinez', '2015-01-11', 353535353, 353535353, '555-890-1234', 'henry.martinez@example.com', 32),
-    (33, 'George', 'Scott', '1994-12-10', 363636363, 363636363, '567-890-1234', 'george.scott@example.com', 33),
-    (34, 'Charles', 'Baker', '1992-11-22', 373737373, 373737373, '789-012-3456', 'charles.baker@example.com', 34),
-    (35, 'Peter', 'Nelson', '1985-08-30', 383838383, 383838383, '901-234-5678', 'peter.nelson@example.com', 35);
+    (26, 'Alice', 'Johnson', '2008-08-12', 282828282, 282828282, '555-123-4567', NULL, 26),
+    (27, 'Bob', 'Smith', '2009-05-30', 292929292, 292929292, '555-234-5678', NULL, 27),
+    (28, 'Charlie', 'Brown', '2010-03-15', 303030303, 303030303, '555-345-6789', NULL, 28),
+    (29, 'David', 'Wilson', '2011-01-20', 313131313, 313131313, '555-456-7890', NULL, 29),
+    (30, 'Eva', 'Williams', '2012-07-18', 323232323, 323232323, '555-567-8901', NULL, 30),
+    (31, 'Frank', 'Miller', '2013-11-05', 343434343, 343434343, '555-678-9012', NULL, 31),
+    (32, 'Henry', 'Martinez', '2015-01-11', 353535353, 353535353, '555-890-1234', NULL, 32),
+    (33, 'George', 'Scott', '1994-12-10', 363636363, 363636363, '567-890-1234', NULL, 33),
+    (34, 'Charles', 'Baker', '1992-11-22', 373737373, 373737373, '789-012-3456', NULL, 34),
+    (35, 'Peter', 'Nelson', '1985-08-30', 383838383, 383838383, '901-234-5678', NULL, 35),
+    (36, 'Alice', 'Parker', '2008-08-12', 393939393, 393939393, '555-123-4567', NULL, 36);
 
 
 -- Insert into Personel
@@ -232,7 +233,7 @@ VALUES
 -- Insert into Contract
 INSERT INTO Contract (contract_id, term_start_date, term_end_date, personel_id, location_id)
 VALUES 
-        -- First location contracts
+    -- First location contracts
     (1, '2023-01-01', NULL, 1, 1), -- Manager, active
     (2, '2022-06-15', '2024-06-15', 2, 1), -- Coach, expired
     (3, '2023-03-01', NULL, 3, 1), -- Assistant Coach, active
@@ -266,7 +267,9 @@ VALUES
     (6, 22, 31, '2016-10-20', NULL, 'Brother'), -- Alice Johnson and Bob Smith
     (7, 23, 32, '2018-02-25', NULL, 'Sister'), -- Charlie Brown and David Wilson
     (8, 24, 33, '2017-07-30', NULL, 'Cousin'), -- Eva Williams and Frank Miller
-    (9, 25, 34, '2019-11-10', NULL, 'Cousin'); -- Henry Martinez and Alice Johnson
+    (9, 25, 34, '2019-11-10', NULL, 'Cousin'), -- Henry Martinez and Alice Johnson
+    (10, 18, 35, '2016-05-15', NULL, 'Father'), -- George Scott and Peter Nelson
+    (11, 25, 36, '2018-09-20', NULL, 'Father'); -- Janet Barnes and Alice Johnson
 
 
 
@@ -293,11 +296,11 @@ VALUES
     (30, 155, 48, 30), -- Eva Williams
     (31, 165, 52, 31), -- Frank Miller
     (32, 175, 60, 32), -- Henry Martinez
-    (18, 180, 65, 18), -- George Scott
-    (20, 185, 70, 20), -- Charles Baker
-    (22, 190, 75, 22), -- Peter Nelson
-    (24, 195, 80, 24), -- Timothy Perez
-    (17, 200, 85, 17); -- Helen Wright
+    (33, 205, 90, 33), -- George Scott
+    (34, 210, 95, 34), -- Charles Baker
+    (35, 215, 100, 35), -- Peter Nelson
+    (36, 150, 45, 36); -- Alice Johnson
+
 
 -- Insert into Membership
 -- Insert into Membership
@@ -309,44 +312,71 @@ VALUES
     (4, 29, 2), -- David Wilson
     (5, 30, 1), -- Eva Williams
     (6, 31, 1), -- Frank Miller
-    (7, 32, 1); -- Henry Martinez
+    (7, 32, 1), -- Henry Martinez
+    (8, 33, 2), -- George Scott
+    (9, 34, 2), -- Charles Baker
+    (10, 35, 2), -- Peter Nelson
+    (11, 36, 2); -- Alice Johnson
+
     
 
 -- Insert into Payment
 INSERT INTO Payment (member_id, amount, location_id, payment_date, payment_method)
 VALUES 
-    -- Alice Johnson (Member 26)
-    (26, 25.00, 1, '2024-01-15', 'Credit Card'),
-    (26, 25.00, 1, '2024-04-10', 'Credit Card'),
-    (26, 25.00, 1, '2024-07-05', 'Credit Card'),
-    (26, 20.00, 1, '2024-10-01', 'Credit Card'),
+    -- Alice Johnson (Member 26) (NOT PAID)
+    (26, 25.00, 1, '2024-01-15', 'credit'),
+    (26, 25.00, 1, '2024-04-10', 'credit'),
+    (26, 25.00, 1, '2024-07-05', 'credit'),
+    (26, 20.00, 1, '2024-10-01', 'credit'),
 
-    -- Bob Smith (Member 27)
-    (27, 30.00, 2, '2024-02-15', 'Cash'),
-    (27, 30.00, 2, '2024-05-15', 'Cash'),
-    (27, 20.00, 2, '2024-09-15', 'Cash'),
-    (27, 70.00, 2, '2024-12-15', 'Cash'), -- $50 donation
+    -- Bob Smith (Member 27) (PAID)
+    (27, 30.00, 2, '2024-02-15', 'cash'),
+    (27, 30.00, 2, '2024-05-15', 'cash'),
+    (27, 20.00, 2, '2024-09-15', 'cash'),
+    (27, 70.00, 2, '2024-12-15', 'cash'), -- $50 donation
 
-    -- Charlie Brown (Member 28)
-    (28, 40.00, 2, '2024-03-01', 'Debit Card'),
-    (28, 60.00, 2, '2024-06-01', 'Debit Card'),
+    -- Charlie Brown (Member 28) (PAID)
+    (28, 40.00, 2, '2024-03-01', 'debit'),
+    (28, 60.00, 2, '2024-06-01', 'debit'),
 
-    -- David Wilson (Member 29)
-    (29, 100.00, 2, '2024-01-01', 'Credit Card'),
-    (29, 30.00, 2, '2024-09-01', 'Credit Card'), -- $30 donation
+    -- David Wilson (Member 29) (PAID)
+    (29, 100.00, 2, '2024-01-01', 'credit'),
+    (29, 30.00, 2, '2024-09-01', 'credit'), -- $30 donation
 
-    -- Eva Williams (Member 30)
-    (30, 25.00, 1, '2024-02-20', 'Cash'),
-    (30, 25.00, 1, '2024-05-15', 'Credit Card'),
-    (30, 25.00, 1, '2024-08-25', 'Cash'),
-    (30, 50.00, 1, '2024-11-30', 'Credit Card'), -- $25 donation
+    -- Eva Williams (Member 30) (PAID)
+    (30, 25.00, 1, '2024-02-20', 'cash'),
+    (30, 25.00, 1, '2024-05-15', 'credit'),
+    (30, 25.00, 1, '2024-08-25', 'cash'),
+    (30, 50.00, 1, '2024-11-30', 'credit'), -- $25 donation
 
-    -- Frank Miller (Member 31)
-    (31, 50.00, 1, '2024-01-10', 'Debit Card'),
-    (31, 50.00, 1, '2024-07-10', 'Debit Card'),
+    -- Frank Miller (Member 31) (PAID)
+    (31, 50.00, 1, '2024-01-10', 'debit'),
+    (31, 50.00, 1, '2024-07-10', 'debit'),
 
-    -- Henry Martinez (Member 32)
-    (32, 25.00, 1, '2024-03-05', 'Credit Card'),
-    (32, 25.00, 1, '2024-06-05', 'Credit Card'),
-    (32, 25.00, 1, '2024-09-05', 'Credit Card');
+    -- Henry Martinez (Member 32) (NOT PAID)
+    (32, 25.00, 1, '2024-03-05', 'credit'),
+    (32, 25.00, 1, '2024-06-05', 'credit'),
+    (32, 25.00, 1, '2024-09-05', 'credit'),
+
+    -- George Scott (Member 33) (NOT PAID)
+    (33, 25.00, 2, '2024-01-15', 'credit'),
+    (33, 25.00, 2, '2024-04-10', 'credit'),
+    (33, 25.00, 2, '2024-07-05', 'credit'),
+    (33, 20.00, 2, '2024-10-01', 'credit'),
+
+    -- Charles Baker (Member 34) (PAID)
+    (34, 30.00, 2, '2024-02-15', 'cash'),
+    (34, 30.00, 2, '2024-05-15', 'cash'),
+    (34, 20.00, 2, '2024-09-15', 'cash'),
+    (34, 70.00, 2, '2024-12-15', 'cash'), -- $50 donation
+
+    -- Peter Nelson (Member 35) (PAID)
+    (35, 40.00, 2, '2024-03-01', 'debit'),
+    (35, 60.00, 2, '2024-06-01', 'debit'),
+
+    -- Alice Johnson (Member 36) (NOT PAID)
+    (36, 60.00, 2, '2024-01-01', 'credit'),
+    (36, 30.00, 2, '2024-09-01', 'credit');
+
+
 
