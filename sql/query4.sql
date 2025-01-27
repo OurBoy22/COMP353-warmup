@@ -8,15 +8,9 @@ WITH ClubMemberInfo AS (
     SELECT 
         ClubMember.member_id AS club_member_id,
         ClubMember.person_id AS club_member_person_id,
-        ClubMember.first_name, 
-        ClubMember.last_name,
-        DATEDIFF(YEAR, dob, GETDATE()) - 
-            CASE 
-                WHEN MONTH(dob) > MONTH(GETDATE()) OR 
-                    (MONTH(dob) = MONTH(GETDATE()) AND DAY(dob) > DAY(GETDATE())) 
-                THEN 1 
-                ELSE 0 
-        END AS age,
+        PersonInfo.first_name, 
+        PersonInfo.last_name,
+        TIMESTAMPDIFF(YEAR, PersonInfo.dob, CURDATE()) AS age,
         Address.city,
         Address.province
         
@@ -24,40 +18,8 @@ WITH ClubMemberInfo AS (
     
     LEFT JOIN PersonInfo ON ClubMember.person_id = PersonInfo.person_id
     LEFT JOIN Address ON PersonInfo.address_id = Address.address_id
-),
--- Get the person information, name, etc based on the person_id of the family_member
-MembersFamilyPerson AS (
-	SELECT 
-    
-		-- Columns from Relationship
-        MembersFamily.relationship_id,
-        MembersFamily.rel_member_id,
-        MembersFamily.rel_family_member_id,
-        MembersFamily.relationship,
-        
-        -- Columns from ClubMember (with aliases to differentiate from FamilyMember)
-        MembersFamily.club_member_id,
-        MembersFamily.club_member_person_id,
-        
-        -- Columns from FamilyMember (with aliases to differentiate from ClubMember)
-        MembersFamily.family_member_person_id,
-        MembersFamily.family_member_id,
-        
-	-- Columns from person
-        PersonInfo.person_id AS person_info_person_id,
-        PersonInfo.first_name,
-        PersonInfo.last_name, 
-        PersonInfo.dob,
-        PersonInfo.ssn,
-        PersonInfo.med_card,
-        PersonInfo.phone_num,
-        PersonInfo.email,
-        PersonInfo.address_id
-	FROM MembersFamily
-    LEFT JOIN PersonInfo ON MembersFamily.family_member_person_id = PersonInfo.person_id
-	-- LEFT JOIN MembersFamily ON MembersFamily.family_member_person_id = PersonInfo.person_id
-	
-),
+)
+,
 
 -- Subquery for Analyzing payments
 -- Contains the total payments, by year, per member_id
@@ -90,7 +52,30 @@ PaymentInfo AS (
 ActiveMembers AS (
     SELECT 
 		*
-
     FROM PaymentInfo
-    LEFT JOIN MembersFamilyPerson ON PaymentInfo.payment_member_id = MembersFamilyPerson.club_member_id 
+    LEFT JOIN ClubMemberInfo ON PaymentInfo.payment_member_id = ClubMemberInfo.club_member_id 
+),
+
+ActiveMembersLocation AS (
+    SELECT 
+        *
+    FROM Location
+    LEFT JOIN ActiveMembers ON ActiveMembers.payment_location_id = Location.location_id
 )
+
+-- final query
+SELECT 
+    ActiveMembersLocation.location_id,
+	ActiveMembersLocation.club_member_id,
+    ActiveMembersLocation.first_name,
+    ActiveMembersLocation.last_name,
+    ActiveMembersLocation.age,
+    ActiveMembersLocation.city,
+    ActiveMembersLocation.province,
+    CASE 
+        WHEN ActiveMembersLocation.full_payment = 1 THEN 'Active'
+        ELSE 'Inactive'
+    END AS status
+FROM ActiveMembersLocation
+
+ORDER BY ActiveMembersLocation.name, ActiveMembersLocation.age ASC;

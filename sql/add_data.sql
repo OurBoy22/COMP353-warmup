@@ -141,7 +141,8 @@ VALUES
     (32, '456 Oak Ave', 'Markham', 'Ontario', 'L3P 2R2'),
     (33, '789 Cedar Blvd', 'Richmond Hill', 'Ontario', 'L4B 2Y4'),
     (34, '101 Maple Road', 'Brampton', 'Ontario', 'L6V 4Z3'),
-    (35, '234 Elm Ave', 'Scarborough', 'Ontario', 'M1K 2X2');
+    (35, '234 Elm Ave', 'Scarborough', 'Ontario', 'M1K 2X2'),
+    (36, '567 Pine Cres', 'Etobicoke', 'Ontario', 'M9C 3G7');
 
 
 -- Insert into PersonInfo
@@ -188,10 +189,10 @@ VALUES
     (30, 'Eva', 'Williams', '2012-07-18', 323232323, 323232323, '555-567-8901', NULL, 30),
     (31, 'Frank', 'Miller', '2013-11-05', 343434343, 343434343, '555-678-9012', NULL, 31),
     (32, 'Henry', 'Martinez', '2015-01-11', 353535353, 353535353, '555-890-1234', NULL, 32),
-    (33, 'George', 'Scott', '1994-12-10', 363636363, 363636363, '567-890-1234', NULL, 33),
-    (34, 'Charles', 'Baker', '1992-11-22', 373737373, 373737373, '789-012-3456', NULL, 34),
-    (35, 'Peter', 'Nelson', '1985-08-30', 383838383, 383838383, '901-234-5678', NULL, 35),
-    (36, 'Alice', 'Parker', '2008-08-12', 393939393, 393939393, '555-123-4567', NULL, 36);
+    (33, 'George', 'Scott', '2014-12-10', 363636363, 363636363, '567-890-1234', NULL, 33),
+    (34, 'Charles', 'Baker', '2009-11-22', 373737373, 373737373, '789-012-3456', NULL, 34),
+    (35, 'Peter', 'Nelson', '2010-08-30', 383838383, 383838383, '901-234-5678', NULL, 35),
+    (36, 'Alice', 'Parker', '2011-08-12', 393939393, 393939393, '555-123-4567', NULL, 36);
 
 
 -- Insert into Personel
