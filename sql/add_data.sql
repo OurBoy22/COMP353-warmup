@@ -87,13 +87,6 @@ CREATE TABLE ClubMember
     person_id INT NOT NULL
 );
 
-CREATE TABLE Membership
-(
-    membership_id INT PRIMARY KEY NOT NULL,
-    member_id INT NOT NULL,
-    location_id INT NOT NULL
-);
-
 CREATE TABLE Payment 
 (
     payment_id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
@@ -304,19 +297,19 @@ VALUES
 
 -- Insert into Membership
 -- Insert into Membership
-INSERT INTO Membership (membership_id, member_id, location_id)
-VALUES 
-    (1, 26, 1), -- Alice Johnson
-    (2, 27, 2), -- Bob Smith
-    (3, 28, 2), -- Charlie Brown
-    (4, 29, 2), -- David Wilson
-    (5, 30, 1), -- Eva Williams
-    (6, 31, 1), -- Frank Miller
-    (7, 32, 1), -- Henry Martinez
-    (8, 33, 2), -- George Scott
-    (9, 34, 2), -- Charles Baker
-    (10, 35, 2), -- Peter Nelson
-    (11, 36, 2); -- Alice Johnson
+-- INSERT INTO Membership (membership_id, member_id, location_id)
+-- VALUES 
+--     (1, 26, 1), -- Alice Johnson
+--     (2, 27, 2), -- Bob Smith
+--     (3, 28, 2), -- Charlie Brown
+--     (4, 29, 2), -- David Wilson
+--     (5, 30, 1), -- Eva Williams
+--     (6, 31, 1), -- Frank Miller
+--     (7, 32, 1), -- Henry Martinez
+--     (8, 33, 2), -- George Scott
+--     (9, 34, 2), -- Charles Baker
+--     (10, 35, 2), -- Peter Nelson
+--     (11, 36, 2); -- Alice Johnson
 
     
 

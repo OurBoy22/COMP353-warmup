@@ -7,7 +7,7 @@ By Luis Ramirez, xxx, xxx, and xxx
 - Docker Desktop - https://www.docker.com/products/docker-desktop/
 - MySQL client - https://dev.mysql.com/downloads/installer/
 
-## Launching Database
+## Launching Database (Skip if you're connecting to the concordia db)
 - Set up the MySQL server instance by running the following command for docker: 
 ```
 docker-compose build
@@ -23,6 +23,14 @@ IP: localhost - 127.0.0.1
 PORT: 3306
 username: myuser
 password: mypassword
+```
+
+If you're connecting to the concordia hosted db:
+```
+IP: uqc353.encs.concordia.ca
+port: 3306
+username: uqc353_4
+password: Aplus123
 ```
 ![test](MySQL_connection_image.PNG)
 

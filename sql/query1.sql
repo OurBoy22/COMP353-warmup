@@ -24,13 +24,13 @@ WITH PersonelContractLocationAddress AS (
 ),
 
 -- Subquery for Membership and ClubMember tables
-MembershipClubMember AS (
+LocationClubMember AS (
     SELECT 
-        Membership.location_id,
+        Payment.location_id,
         COUNT(DISTINCT ClubMember.member_id) AS count_members
-    FROM Membership
-    LEFT JOIN ClubMember ON ClubMember.member_id = Membership.member_id
-    GROUP BY Membership.location_id
+    FROM Payment
+    LEFT JOIN ClubMember ON ClubMember.member_id = Payment.member_id
+    GROUP BY Payment.location_id
 ),
 
 -- Subquery for Manager (Personel with role 'Manager')
@@ -56,12 +56,12 @@ SELECT
     PersonelContractLocationAddress.address,
     PersonelContractLocationAddress.postal_code,
     COUNT(DISTINCT PersonelContractLocationAddress.personel_id) AS count_personel,
-    COALESCE(MembershipClubMember.count_members, 0) AS count_members
+    COALESCE(LocationClubMember.count_members, 0) AS count_members
 FROM PersonelContractLocationAddress
 
 -- Join with Membership and ClubMember data
-LEFT JOIN MembershipClubMember
-    ON PersonelContractLocationAddress.location_id = MembershipClubMember.location_id
+LEFT JOIN LocationClubMember
+    ON PersonelContractLocationAddress.location_id = LocationClubMember.location_id
 
 -- Join with Manager table to get the manager for each location
 LEFT JOIN LocationManager
@@ -77,7 +77,7 @@ GROUP BY  PersonelContractLocationAddress.location_id,
           PersonelContractLocationAddress.city,
           PersonelContractLocationAddress.address,
           PersonelContractLocationAddress.postal_code,
-          MembershipClubMember.count_members,
+          LocationClubMember.count_members,
           LocationManager.manager_id
           
 -- Ordering 
