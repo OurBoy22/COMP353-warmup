@@ -5,32 +5,30 @@
 
 -- Table to calculate donations and membership fees for each member in 2024
 WITH donations_and_membershipfees AS (
-SELECT 
-    member_id,
-    CASE
-        WHEN SUM(amount) > 100 THEN SUM(amount) - 100   -- If the sum of membership fees is greater than 100, then the rest goes to donations
-        ELSE 0 -- if sum of membership fees is less than 100, then donations are 0
-        END AS donations,
-    END AS donations,
-    CASE
-		WHEN sum(amount) > 100 THEN 100 
-        ELSE SUM(amount)
-        END as membership_fees
-FROM
-    Payment
-    
-WHERE YEAR(payment_date) = 2024 -- payments in 2024
-GROUP BY member_id
-    ),
-    -- only select the members who have paid the membership fees fully
-    membershipfees_paid AS (
-    select * from
-    donations_and_membershipfees
-    where membership_fees = 100
-    )
+	SELECT 
+		Payment.member_id,
+		-- Take into account donations
+		CASE
+			WHEN SUM(Payment.amount) > 100 THEN SUM(Payment.amount) - 100   -- If the sum of membership fees is greater than 100, then the rest goes to donations
+			ELSE 0 -- if sum of membership fees is less than 100, then donations are 0
+		END AS donations,
+		
+		-- Take into account Actual paid amount for membership
+		CASE
+			WHEN SUM(Payment.amount) > 100 THEN 100 
+			ELSE SUM(Payment.amount)
+		END AS membership_fees
+	FROM
+		Payment
+		
+	 -- Filter by year
+	WHERE YEAR(payment_date) = 2024
+	GROUP BY member_id
+)
 
--- total donations and total member_ship fees collected by the club 
-select sum(donations),sum(membership_fees) from
-membershipfees_paid
+-- Final Query - total donations and total member_ship fees collected by the club 
+SELECT SUM(donations) AS total_donations,
+	   SUM(membership_fees) AS total_membership_fees 
+FROM donations_and_membershipfees
 
 
