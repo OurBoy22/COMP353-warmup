@@ -10,7 +10,9 @@ WITH ClubMemberInfo AS (
         ClubMember.person_id AS club_member_person_id,
         PersonInfo.first_name, 
         PersonInfo.last_name,
-        TIMESTAMPDIFF(YEAR, PersonInfo.dob, CURDATE()) AS age,
+        TIMESTAMPDIFF(YEAR, PersonInfo.dob, CURDATE()) - 
+			(CURDATE() < DATE_ADD(PersonInfo.dob, INTERVAL TIMESTAMPDIFF(YEAR, PersonInfo.dob, CURDATE()) YEAR)) 
+		AS age,
         Address.city,
         Address.province
         
