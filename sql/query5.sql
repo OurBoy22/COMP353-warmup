@@ -75,4 +75,6 @@ SELECT
         WHEN COALESCE(full_payment, 0) = 1 THEN "Active"
         ELSE "Inactive"
     END AS status
-FROM FamilyClubDetails;
+FROM FamilyClubDetails
+
+WHERE family_member_id = 21 -- Show details for a single family member
