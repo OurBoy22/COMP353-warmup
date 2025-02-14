@@ -297,7 +297,9 @@ VALUES
     (23, 23), -- Christine Carter
     (24, 24), -- Timothy Perez
     (25, 25), -- Janet Barnes
-    (11, 11); -- Karen Lewis Example employee who is also a family member
+    (11, 11), -- Karen Lewis Example employee who is also a family member
+    (26, 26); -- Example employee who is also a family member
+    
 
 -- Insert into ClubMember
 INSERT INTO ClubMember (member_id, height, weight, person_id)
@@ -324,6 +326,12 @@ VALUES
     (26, 25.00, 1, '2024-04-10', 'Credit Card'),
     (26, 25.00, 1, '2024-07-05', 'Credit Card'),
     (26, 20.00, 1, '2024-10-01', 'Credit Card'),
+
+    (26, 25.00, 4, '2024-01-15', 'Credit Card'),
+    (26, 25.00, 4, '2024-04-10', 'Credit Card'),
+    (26, 25.00, 4, '2024-07-05', 'Credit Card'),
+    (26, 30.00, 4, '2024-10-01', 'Credit Card'), -- $5 donation
+
 
     -- Bob Smith (Member 27)
     (27, 30.00, 2, '2024-02-15', 'Cash'),
