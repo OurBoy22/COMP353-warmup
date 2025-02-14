@@ -141,7 +141,8 @@ VALUES
     (32, '456 Oak Ave', 'Markham', 'Ontario', 'L3P 2R2'),
     (33, '789 Cedar Blvd', 'Richmond Hill', 'Ontario', 'L4B 2Y4'),
     (34, '101 Maple Road', 'Brampton', 'Ontario', 'L6V 4Z3'),
-    (35, '234 Elm Ave', 'Scarborough', 'Ontario', 'M1K 2X2');
+    (35, '234 Elm Ave', 'Scarborough', 'Ontario', 'M1K 2X2'),
+    (36, '1 Elo Ave', 'Scarborough', 'Quebec', 'M1K 1X2');
 
 
 -- Insert into PersonInfo
@@ -216,7 +217,11 @@ VALUES
     (13, 13),
     (14, 14),
     (15, 15),
-    (16, 16);
+    (16, 16),
+
+    -- 4th location
+    (17, 17);
+
 
     
 -- Insert into Location
@@ -227,7 +232,9 @@ VALUES
     -- second location
     (2, 'Club B', 'Branch', '555-5678', 'www.clubb.com', 50, 2),
     -- head location
-    (3, 'Headquarters', 'Head', '555-9012', 'www.headquarters.com', 10, 3);
+    (3, 'Headquarters', 'Head', '555-9012', 'www.headquarters.com', 10, 3),
+    -- 4th location
+    (4, 'Gym Abc', 'Branch', '555-1634', 'www.gymabc.com', 40, 29);
 
 
 -- Insert into Contract
@@ -253,7 +260,11 @@ VALUES
     (13, '2023-01-01', '2024-01-01', 13, 3, 'Deputy', 'Full-Time'),
     (14, '2023-04-15', NULL, 14, 3, 'Secretary', 'Full-Time'),
     (15, '2023-06-01', '2024-06-01', 15, 3, 'Treasurer', 'Part-Time'),
-    (16, '2024-01-01', NULL, 16, 3, 'Administrator', 'Full-Time');
+    (16, '2024-01-01', NULL, 16, 3, 'Administrator', 'Full-Time'),
+
+ -- 4th location contracts
+    (17, '2020-01-01', NULL, 17, 4, 'Manager', 'Full-Time');
+
 
 
 
@@ -358,5 +369,9 @@ VALUES
     (36, 25.00, 2, '2024-03-05', 'Credit Card'),
     (36, 25.00, 2, '2024-06-05', 'Credit Card'),
     (36, 25.00, 2, '2024-09-05', 'Credit Card'),
-    (36, 25.00, 2, '2024-12-05', 'Credit Card');
+    (36, 25.00, 2, '2024-12-05', 'Credit Card'),
 
+    (36, 25.00, 3, '2024-03-05', 'Credit Card'),
+    (36, 25.00, 3, '2024-06-05', 'Credit Card'),
+    (36, 25.00, 4, '2024-09-05', 'Credit Card'),
+    (36, 25.00, 4, '2024-12-05', 'Credit Card');
