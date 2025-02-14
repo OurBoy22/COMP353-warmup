@@ -67,6 +67,7 @@ ActiveMembersLocation AS (
 
 -- final query
 SELECT 
+    ActiveMembersLocation.name,
     ActiveMembersLocation.location_id,
 	ActiveMembersLocation.club_member_id,
     ActiveMembersLocation.first_name,
