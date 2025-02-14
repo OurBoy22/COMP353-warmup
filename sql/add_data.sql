@@ -192,7 +192,7 @@ VALUES
     (33, 'George', 'Scott', '1994-12-10', 363636363, 363636363, '567-890-1234', 'george.scott@example.com', 33),
     (34, 'Charles', 'Baker', '1992-11-22', 373737373, 373737373, '789-012-3456', 'charles.baker@example.com', 34),
     (35, 'Peter', 'Nelson', '1985-08-30', 383838383, 383838383, '901-234-5678', 'peter.nelson@example.com', 35),
-    (36, 'Karen', 'Lewis', '1986-08-30', 393939393, 393939393, '012-345-6789', 'karen.lewis@example.com', 36);
+    (36, 'Bo', 'Joe', '1986-08-30', 393939393, 393939393, '012-345-6789', 'karen.lewis@example.com', 36);
 
 -- Insert into Personel
 INSERT INTO Personel (personel_id, person_id)
