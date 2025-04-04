@@ -1,0 +1,34 @@
+Triggers that we need
+
+- Check Age Range 11 to 18 - First day of each month check if any club member turned 18 last month 
+-> deactivate membership and send email of deactivation
+
+- Check if member is associated to only one location, when they move to a different branch
+
+- Check if membership fees are paid, if not set that member to Inactive.
+
+- Check if all members are same genders in Teams. So when a member gets added
+
+- Check if a players has been assigned to 2 team formation on the same day, 
+    there has to be at least a 3h difference between the start time of the two formations.
+
+- Every week on sunday, check for games in the upcoming week, the system should send an email to every club member 
+    indicating the schedule of the session including date, time, address, name of head coach, and email of the head coach.
+
+
+-------------------------
+Project description Notes
+-------------------------
+
+- A family member should already be registed to become a member
+
+- System keep track of:
+    - General head of club
+    - head
+
+- The subject of the email should include the team’s name, the date and time of the session. A subject
+example: “Montréal Youth Group 6 Monday 20-Feb-2024 6:00 PM training session”. The email
+body should include the club member’s first name, last name and role in the game (outside hitter,
+opposite, setter, middle blocker, libero, defensive specialist, or serving specialist), the first-name,
+last-name and email address of the captain of the session, whether the session is a training session
+or a game session, and finally the address of the session.
